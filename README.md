@@ -32,7 +32,7 @@ Then invoke by name from the Claude Code prompt:
 /sf-hosted-mcp
 ```
 
-### Other AI assistants (Cursor Agent, ChatGPT, etc.)
+### Other AI assistants (Cursor Agent, Postman, etc.)
 
 Clone or download this repo, then paste the contents of the relevant `SKILL.md` into your assistant as context — either as a system prompt, a file attachment, or by referencing it in your prompt:
 
@@ -42,7 +42,7 @@ Use the instructions in sf-hosted-mcp/SKILL.md to help me connect to Salesforce 
 
 ## Contributing
 
-This repo is maintained by the FDE team. To add a new skill:
+To add a new skill:
 
 1. Create a subdirectory named `sf-<topic>/`
 2. Add a `SKILL.md` (the skill prompt) and a `README.md` (human-readable overview)

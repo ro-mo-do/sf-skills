@@ -1,6 +1,6 @@
 # sf-hosted-mcp
 
-End-to-end setup skill for connecting any AI client (Claude Code, Cursor, ChatGPT, Postman) to **Salesforce Hosted MCP Servers** via OAuth 2.0 + PKCE.
+End-to-end setup skill for connecting any AI client (Claude Code, Cursor, Postman) to **Salesforce Hosted MCP Servers** via OAuth 2.0 + PKCE.
 
 ## What This Skill Covers
 
@@ -27,7 +27,7 @@ End-to-end setup skill for connecting any AI client (Claude Code, Cursor, ChatGP
 ## Architecture
 
 ```
-AI Client (Claude / Cursor / ChatGPT)
+AI Client (Claude / Cursor / Postman)
     │  OAuth 2.0 + PKCE  (per-user, named user tokens)
     ▼
 External Client App  (consumer key + secret)
