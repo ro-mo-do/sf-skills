@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Template: External Client Application for Salesforce Hosted MCP
+  Deploy path: force-app/main/default/externalClientApps/{{APP_NAME}}.eca-meta.xml
+  Minimum API version: 61.0
+
+  Replace:
+  - {{APP_NAME}}           API name, no spaces (e.g., Claude_MCP)
+  - {{LABEL}}              Display label (e.g., Claude MCP Client)
+  - {{CONTACT_EMAIL}}      Admin email
+  - {{DESCRIPTION}}        Short description
+  - {{DISTRIBUTION_STATE}} Local | Packageable
+
+  Companion files required:
+  - extlClntAppGlobalOauthSets/{{APP_NAME}}.ecaGlblOauth-meta.xml
+  - extlClntAppOauthSettings/{{APP_NAME}}.ecaOauth-meta.xml
+-->
+<ExternalClientApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>{{CONTACT_EMAIL}}</contactEmail>
+    <description>{{DESCRIPTION}}</description>
+    <distributionState>{{DISTRIBUTION_STATE}}</distributionState>
+    <isProtected>false</isProtected>
+    <label>{{LABEL}}</label>
+</ExternalClientApplication>

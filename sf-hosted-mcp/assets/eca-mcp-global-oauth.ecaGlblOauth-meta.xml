@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Template: ExtlClntAppGlobalOauthSettings for Salesforce Hosted MCP
+  Deploy path: force-app/main/default/extlClntAppGlobalOauthSets/{{APP_NAME}}.ecaGlblOauth-meta.xml
+
+  NOTE: File suffix is .ecaGlblOauth (abbreviated), NOT .ecaGlobalOauth
+
+  Replace:
+  - {{APP_NAME}}      Must match the ExternalClientApplication API name exactly
+  - {{LABEL}}         Display label for this settings record
+  - {{CALLBACK_URL}}  OAuth callback URL for your MCP client:
+                        Claude:         https://claude.ai/api/mcp/auth_callback
+                        Cursor:         cursor://anysphere.cursor-mcp/oauth/callback
+                        Postman (HTTP): https://oauth.pstmn.io/v1/callback
+                        Postman (Web):  https://oauth.pstmn.io/v1/browser-callback
+
+  MCP-required security settings (do not change):
+  - isNamedUserJwtEnabled = true    (MCP server requires JWT tokens; session tokens will be rejected)
+  - isPkceRequired = true           (PKCE is mandatory for MCP)
+  - isConsumerSecretOptional = true (public client pattern used by MCP clients)
+  - isSecretRequiredForRefreshToken = false
+-->
+<ExtlClntAppGlobalOauthSettings xmlns="http://soap.sforce.com/2006/04/metadata">
+    <callbackUrl>{{CALLBACK_URL}}</callbackUrl>
+    <externalClientApplication>{{APP_NAME}}</externalClientApplication>
+    <isConsumerSecretOptional>true</isConsumerSecretOptional>
+    <isIntrospectAllTokens>false</isIntrospectAllTokens>
+    <isNamedUserJwtEnabled>true</isNamedUserJwtEnabled>
+    <isPkceRequired>true</isPkceRequired>
+    <isSecretRequiredForRefreshToken>false</isSecretRequiredForRefreshToken>
+    <label>{{LABEL}}</label>
+    <shouldRotateConsumerKey>false</shouldRotateConsumerKey>
+    <shouldRotateConsumerSecret>false</shouldRotateConsumerSecret>
+</ExtlClntAppGlobalOauthSettings>

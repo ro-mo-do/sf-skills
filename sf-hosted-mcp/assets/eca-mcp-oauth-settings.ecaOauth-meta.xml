@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Template: ExtlClntAppOauthSettings for Salesforce Hosted MCP
+  Deploy path: force-app/main/default/extlClntAppOauthSettings/{{APP_NAME}}.ecaOauth-meta.xml
+
+  Replace:
+  - {{APP_NAME}}  Must match the ExternalClientApplication API name exactly
+  - {{LABEL}}     Display label for this settings record
+
+  MCP requires exactly two scopes:
+  - McpApi        "Access MCP servers" (mcp_api)
+  - RefreshToken  "Perform requests at any time" (refresh_token)
+
+  Do not add Api, Full, or other broad scopes — they are not needed for MCP.
+-->
+<ExtlClntAppOauthSettings xmlns="http://soap.sforce.com/2006/04/metadata">
+    <commaSeparatedOauthScopes>MCP, RefreshToken</commaSeparatedOauthScopes>
+    <externalClientApplication>{{APP_NAME}}</externalClientApplication>
+    <label>{{LABEL}}</label>
+</ExtlClntAppOauthSettings>
