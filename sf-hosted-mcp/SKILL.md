@@ -37,7 +37,7 @@ Use `sf-hosted-mcp` when the work involves:
 - Choosing and activating built-in Salesforce MCP servers
 - Configuring `mcp.json` or Claude's connector settings for Salesforce
 
-Delegate to skills from https://github.com/Jaganpro/sf-skills.git when the user is:
+Delegate to other skills when the user is:
 - Creating ECAs for non-MCP OAuth use cases → [sf-connected-apps](../sf-connected-apps/SKILL.md)
 - Deploying metadata to orgs → [sf-deploy](../sf-deploy/SKILL.md)
 - Building custom MCP server tools in Apex → [sf-apex](../sf-apex/SKILL.md)
