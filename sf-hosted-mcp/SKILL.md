@@ -161,7 +161,7 @@ https://<instance>.my.salesforce-setup.com/lightning/setup/ManageExternalClientA
 | Claude (claude.ai web) | `https://claude.ai/api/mcp/auth_callback` |
 | Claude Code CLI (native SSE) | `http://localhost:8080/callback` |
 | Claude Code CLI (via mcp-remote) | `http://localhost:8080/oauth/callback` |
-| Cursor (native `auth` block) | Managed internally by Cursor — no entry needed in ECA |
+| Cursor (native `auth` block) | `cursor://anysphere.cursor-mcp/oauth/callback` |
 | Cursor (via mcp-remote) | `http://localhost:8081/oauth/callback` |
 | Postman (HTTP) | `https://oauth.pstmn.io/v1/callback` |
 | Postman (Web) | `https://oauth.pstmn.io/v1/browser-callback` |
