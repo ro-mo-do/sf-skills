@@ -17,9 +17,9 @@ End-to-end setup skill for connecting any AI client (Claude Code, Cursor, Postma
 
 | Area | Use Instead |
 |------|-------------|
-| Non-MCP OAuth / Connected Apps | [sf-connected-apps](../sf-connected-apps/) |
-| Deploying metadata to orgs | [sf-deploy](../sf-deploy/) |
-| Custom Apex `@InvocableMethod` MCP tools | [sf-apex](../sf-apex/) |
+| Non-MCP OAuth / Connected Apps | [sf-connected-apps](https://github.com/Jaganpro/sf-skills/tree/main/skills/sf-connected-apps) |
+| Deploying metadata to orgs | [sf-deploy](https://github.com/Jaganpro/sf-skills/tree/main/skills/sf-deploy) |
+| Custom Apex `@InvocableMethod` MCP tools | [sf-apex](https://github.com/Jaganpro/sf-skills/tree/main/skills/sf-apex) |
 | DX MCP Server (`sfdx_dev`) | separate guide |
 | Custom MCP server development | separate guide |
 | MuleSoft / Heroku MCP | separate guide |
