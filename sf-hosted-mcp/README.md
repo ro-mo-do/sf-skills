@@ -8,7 +8,7 @@ End-to-end setup skill for connecting any AI client (Claude Code, Cursor, Postma
 |------|-------------|
 | **External Client App (ECA)** | Creating and configuring the OAuth identity for MCP clients |
 | **MCP Server activation** | Enabling built-in Salesforce MCP servers in Setup |
-| **Claude Code CLI** | Configuring `.mcp.json` with `mcp-remote` |
+| **Claude Code CLI** | `claude mcp add` (recommended), `.mcp.json` native HTTP, or `mcp-remote` fallback |
 | **Cursor** | Configuring `~/.cursor/mcp.json` with the `auth` block |
 | **Postman** | OAuth 2.0 + PKCE setup for testing MCP connections |
 | **Troubleshooting** | JWT errors, PKCE verifier failures, Cursor race conditions |
@@ -64,7 +64,7 @@ Salesforce Platform  (FLS · sharing rules · object permissions enforced per-us
 |---|---|
 | Salesforce org type | Production, Developer, Sandbox, or Scratch (via DevHub) |
 | sf CLI | v2.x |
-| Node.js | Required for `mcp-remote` (Claude Code and other stdio-based clients) |
+| Node.js | Required only for Option C (`mcp-remote` fallback) |
 | ECA activation delay | Up to 30 minutes after creation |
 
 ## Quick Start
@@ -83,7 +83,7 @@ Use these instructions to connect me to Salesforce via Hosted MCP.
 
 - **Connected Apps cannot be used for MCP** — only External Client Apps work
 - **Cursor `auth` key must be `CLIENT_ID` (all caps)** — `clientId` camelCase is silently ignored
-- **Claude Code native SSE does not work** — use `mcp-remote` via `npx` instead
+- **Claude Code preferred method**: `claude mcp add --transport http` (Option A) — no Node.js needed; fall back to `.mcp.json` native HTTP (Option B) or `mcp-remote` (Option C) if needed
 - **Scratch orgs**: ECA cannot be created via Setup UI — use DevHub + package + install
 - **Multiple Cursor servers sharing one `CLIENT_ID`**: authenticate one at a time; do not click "Connect" while the auto-triggered browser is open
 

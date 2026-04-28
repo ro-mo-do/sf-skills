@@ -10,7 +10,7 @@ description: >
 license: MIT
 allowed-tools: Bash Read Write Edit Glob Grep WebFetch AskUserQuestion TodoWrite
 metadata:
-  version: "1.2.0"
+  version: "1.3.0"
   author: "Robert Doan"
   docs: "https://developer.salesforce.com/docs/platform/hosted-mcp-servers/guide"
 ---
@@ -159,8 +159,8 @@ https://<instance>.my.salesforce-setup.com/lightning/setup/ManageExternalClientA
 | Client | Callback URL |
 |---|---|
 | Claude (claude.ai web) | `https://claude.ai/api/mcp/auth_callback` |
-| Claude Code CLI (native SSE) | `http://localhost:8080/callback` |
-| Claude Code CLI (via mcp-remote) | `http://localhost:8080/oauth/callback` |
+| Claude Code CLI (native HTTP — recommended) | `http://localhost:8082/callback` |
+| Claude Code CLI (via mcp-remote — fallback) | `http://localhost:8080/oauth/callback` |
 | Cursor (native `auth` block) | `cursor://anysphere.cursor-mcp/oauth/callback` |
 | Cursor (via mcp-remote) | `http://localhost:8081/oauth/callback` |
 | Postman (HTTP) | `https://oauth.pstmn.io/v1/callback` |
@@ -269,11 +269,64 @@ https://api.salesforce.com/platform/mcp/v1/sandbox/platform/sobject-reads
 
 ### Claude Code CLI
 
-Claude Code's native `"type": "sse"` connector works with Salesforce Hosted MCP. The `callbackPort` in the config controls which localhost port Claude Code uses for the OAuth redirect.
+#### Option A: `claude mcp add` CLI command — HTTP transport (recommended)
 
-**Required ECA callback URL:** `http://localhost:8080/callback`
+No config file editing or Node.js required. Run once per server; Claude Code stores the connection in `.claude.json` and handles OAuth automatically.
 
-Add to your Claude Code MCP config file (`.mcp.json` in project root or `~/.claude/mcp.json` globally):
+**Required ECA callback URL:** `http://localhost:8082/callback`
+
+```bash
+claude mcp add --transport http \
+  --client-id <CONSUMER-KEY> \
+  --callback-port 8082 \
+  salesforce-sobject-reads \
+  https://api.salesforce.com/platform/mcp/v1/platform/sobject-reads
+```
+
+For sandbox/scratch orgs:
+
+```bash
+claude mcp add --transport http \
+  --client-id <CONSUMER-KEY> \
+  --callback-port 8082 \
+  salesforce-sobject-reads \
+  https://api.salesforce.com/platform/mcp/v1/sandbox/platform/sobject-reads
+```
+
+If port 8082 is already in use, pick any free port and update the ECA callback URL to match (e.g., `http://localhost:8083/callback`).
+
+#### Option B: `.mcp.json` with native SSE/HTTP connector (fallback)
+
+Use this if the `claude mcp add` command is unavailable or you prefer file-based config. The `callbackPort` controls which localhost port Claude Code uses for the OAuth redirect.
+
+**Required ECA callback URL:** `http://localhost:8082/callback`
+
+Add to `.mcp.json` in your project root (or `~/.claude/mcp.json` globally):
+
+```json
+{
+  "mcpServers": {
+    "salesforce-sobject-reads": {
+      "type": "http",
+      "url": "https://api.salesforce.com/platform/mcp/v1/platform/sobject-reads",
+      "oauth": {
+        "clientId": "<CONSUMER-KEY>",
+        "callbackPort": 8082
+      }
+    }
+  }
+}
+```
+
+For sandbox/scratch orgs, change the URL to `https://api.salesforce.com/platform/mcp/v1/sandbox/platform/sobject-reads`.
+
+#### Option C: `mcp-remote` via npx (last resort)
+
+Use only if both Option A and Option B fail (e.g., environment blocks native HTTP transport). Requires Node.js.
+
+**Required ECA callback URL:** `http://localhost:8080/oauth/callback`
+
+Add to `.mcp.json` in your project root (or `~/.claude/mcp.json` globally):
 
 ```json
 {
@@ -293,11 +346,9 @@ Add to your Claude Code MCP config file (`.mcp.json` in project root or `~/.clau
 }
 ```
 
-For sandbox/scratch orgs, change the URL to `https://api.salesforce.com/platform/mcp/v1/sandbox/platform/sobject-reads`.
+For sandbox/scratch orgs, change the URL to `https://api.salesforce.com/platform/mcp/v1/sandbox/platform/sobject-reads`. If port 8080 is in use, increment to 8081 and update both the args and the ECA callback URL to match.
 
-If port 8080 is already in use by another MCP server, increment to 8081 and update both the `mcp-remote` args and the ECA callback URL to match.
-
-**Checking connection status in Claude Code:** Run `/mcp` in the Claude Code prompt to see which servers are connected and reconnect any that have dropped. If a server shows as disconnected, `/mcp` will reconnect it without requiring a full restart.
+**Checking connection status in Claude Code:** Run `/mcp` in the Claude Code prompt to see which servers are connected and reconnect any that have dropped. If a server shows as disconnected, `/mcp` will reconnect it (and re-auth if the token expired) without a full restart.
 
 ### Cursor
 
